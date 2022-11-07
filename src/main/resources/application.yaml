@@ -1,0 +1,42 @@
+# Running Server properties
+server:
+  address: # bind address
+  port: 8181  # port must be unique for each deployed Module in the same environment
+  servlet:
+    context-path: /springdemo
+
+
+spring:
+  datasource:
+    initialization-mode: always
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/springdemo
+    username: postgres
+    password: postgres
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 300000
+      max-lifetime: 1200000
+  jpa:
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+      org.hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+            show-sql: false
+          time_zone: UTC
+  cache:
+    jcache:
+      # Location of the ehcache configuration file. For instance, `classpath:ext/ehcache.xml` or `file:/path/ehcache.xml`.
+      config: classpath:ext/ehcache.xml
+
+welcome:
+  message: "Helllo"
