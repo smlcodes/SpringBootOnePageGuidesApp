@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name="users")
-public class Users {
+public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,4 +23,6 @@ public class Users {
     @Column
     private String name;
 
+    @Column
+    private Long salary;
 }

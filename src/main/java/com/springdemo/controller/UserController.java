@@ -1,25 +1,22 @@
 package com.springdemo.controller;
 
-import org.apache.catalina.User;
+import com.springdemo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.springdemo.model.Users;
-import com.springdemo.service.UsersService;
+import com.springdemo.service.UserService;
 
 import java.util.List;
+import java.util.Random;
 
 
 @RestController
 @RequestMapping("/api")
-public class UsersController {
+public class UserController {
 
 	@Autowired
-    private UsersService service ;
+    private UserService service ;
 
 	
 
@@ -32,9 +29,9 @@ public class UsersController {
 
 	// display list of users
 	@GetMapping("/all")
-	public List<Users> listUserss(Model model) {
+	public List<User> listUserss(Model model) {
 		System.out.println(" ===> listUserss");
-		return service.getAllUserss();
+		return service.getAllUsers();
 	}
 
 
@@ -43,19 +40,20 @@ public class UsersController {
 		System.out.println(" ===> listUserss");
 
 		for(int i=0; i<10; i++){
-			Users user = new Users();
+			User user = new User();
 			user.setName(nameGen());
+			user.setSalary(salaryGen());
 			System.out.println("added : "+user);
 			service.saveUser(user);
 		}
-		return "Users added";
+		return "User added";
 
 	}
 
 
 
 	@PostMapping("/saveUser")
-	public String saveUsers(@ModelAttribute("user") Users user) {
+	public String saveUsers(@ModelAttribute("user") User user) {
 		// save user to database
 		System.out.println(" ===================== ");
 		System.out.println("saveUsers : "+user);
@@ -73,6 +71,21 @@ public class UsersController {
 	}
 
 
+	@GetMapping("/querysln")
+	public String querysln() {
+		System.out.println(" ===> querysln");
+		return service.querySln();
+	}
+
+
+	@GetMapping("/completableFeature")
+	public List<User> completableFeature() {
+		System.out.println(" ===> completableFeature");
+		System.out.println("sample data : https://www.mockaroo.com/");
+		return service.completableFeature();
+	}
+
+
 	private String nameGen()
 	{
 		String AlphaNumericStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZSATYA";
@@ -84,4 +97,16 @@ public class UsersController {
 		}
 		return s.toString();
 	}
+
+	private Long salaryGen()
+	{
+		Random r = new Random();
+		int low = 5000;
+		int high = 90000;
+		long result = r.nextInt(high-low) + low;
+		return result;
+	}
+
+
+
 }
