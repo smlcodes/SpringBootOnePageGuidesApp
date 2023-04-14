@@ -53,13 +53,10 @@ public class UserController {
 
 
 	@PostMapping("/saveUser")
-	public String saveUsers(@ModelAttribute("user") User user) {
-		// save user to database
-		System.out.println(" ===================== ");
-		System.out.println("saveUsers : "+user);
-		System.out.println(" ===================== ");
-		service.saveUser(user);
-		return "saved";
+	public User saveUsers(@RequestBody User user) {
+		System.out.println("saveuser : "+user);
+		return service.saveUser(user);
+
 	}
 
 

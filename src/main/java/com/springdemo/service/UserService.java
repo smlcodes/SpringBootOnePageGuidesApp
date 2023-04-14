@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public interface UserService {
 	List<User> getAllUsers();
 
-	void saveUser(User User);
+	User saveUser(User User);
 
 	User getUsersById(long id);
 

@@ -8,12 +8,15 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.springdemo.model.QUser;
 import com.springdemo.model.User;
 import com.springdemo.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Service
-public class UseServiceImpl implements UserService {
+@Slf4j
+public class UsesServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository repository;
@@ -26,12 +29,10 @@ public class UseServiceImpl implements UserService {
 	}
 
 	@Override
-	public void saveUser(User user) {
+	public User saveUser(User user) {
 		// TODO Auto-generated method stub
 		System.out.println("Saving Start : "+user);
-		User e = repository.save(user);
-		System.out.println(" User Data Saved : " + e);
-
+		return repository.save(user);
 	}
 
 	@Override
@@ -80,8 +81,11 @@ public class UseServiceImpl implements UserService {
 		result = result+"\n \n \n-- find users YNDFBTUG --";
 		BooleanExpression booleanExpression3 = QUser.user.name.eq("YNDFBTUG");
 		Optional<User> opt = repository.findOne(booleanExpression3);
-		result= result+"\n "+opt.get();
-
+		if(opt.isPresent()) {
+			result = result + "\n " + opt.get();
+		}else{
+			log.error("User Not found with the name YNDFBTUG");
+		}
 
 		return result;
 	}
