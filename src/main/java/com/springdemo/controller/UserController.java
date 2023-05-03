@@ -12,7 +12,7 @@ import java.util.Random;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/user")
 public class UserController {
 
 	@Autowired
@@ -24,11 +24,36 @@ public class UserController {
 	public String viewHomePage() {
 		return "User Details API";
 	}
-	
+
+
+
+	@PostMapping("/save")
+	public User saveUsers(@RequestBody User user) {
+		System.out.println("saveuser : "+user);
+		return service.saveUser(user);
+
+	}
+
+
+	@GetMapping("/{id}")
+	public User getUser(@PathVariable(value = "id") Long id) {
+		System.out.println("getUser : "+id);
+		return service.getUsersById(id);
+
+	}
+
+
+
+	@GetMapping("/delete/{id}")
+	public String deleteUsers(@PathVariable(value = "id") long id) {
+		// call delete user method
+		this.service.deleteUsersById(id);
+		return "deleted";
+	}
 
 
 	// display list of users
-	@GetMapping("/all")
+	@GetMapping("/list")
 	public List<User> listUserss(Model model) {
 		System.out.println(" ===> listUserss");
 		return service.getAllUsers();
@@ -52,20 +77,6 @@ public class UserController {
 
 
 
-	@PostMapping("/saveUser")
-	public User saveUsers(@RequestBody User user) {
-		System.out.println("saveuser : "+user);
-		return service.saveUser(user);
-
-	}
-
-
-	@GetMapping("/deleteUser/{id}")
-	public String deleteUsers(@PathVariable(value = "id") long id) {
-		// call delete user method
-		this.service.deleteUsersById(id);
-		return "deleted";
-	}
 
 
 	@GetMapping("/querysln")
