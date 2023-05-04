@@ -26,6 +26,10 @@ public class SpringApplication {
         System.out.println(" http://localhost:8181/springdemo/employee/101");
         System.out.println(" http://localhost:8181/springdemo/employee/all");
 
+
+        System.out.println("  \n \t JasperReportsController \n ************************ ");
+        System.out.println(" http://localhost:8181/springdemo/reports/employeesReport/{reportType}");
+
         System.out.println("If any errors in QueryDSL, RightClick > Maven > Generate Sources & Reload project");
         System.out.println("Basic Auth Token :"+ Base64Util.encode("user", "password"));
         
